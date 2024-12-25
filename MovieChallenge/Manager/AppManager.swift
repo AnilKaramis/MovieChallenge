@@ -6,9 +6,15 @@
 //
 
 import Foundation
-
+ 
 class AppManager {
     static let shared = AppManager()
     
-    var movies - [MoviesListEndpoint: [Movie]]()
+    var movies = [MovieListEndpoint: [Movie]]()
+    
+    private init() {
+        for endpoint in MovieListEndpoint.allCases {
+            movies[endpoint] = [Movie]()
+        }
+    }
 }

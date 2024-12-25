@@ -8,12 +8,51 @@
 import UIKit
 
 class SplashScreenViewController: UIViewController {
+
+    private let viewModel: SplashScreenViewModel
     
-    private let viewModel: SplashViewModel
-    
-    init(viewModel: SplashViewModel = .init()) {
+    init(viewModel: SplashScreenViewModel = .init()) {
         self.viewModel = viewModel
-        super.init
+        
+        super.init(nibName: nil, bundle: nil)
+        
+        self.viewModel.output = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        viewModel.input?.viewDidLoad()
     }
 }
 
+extension SplashScreenViewController: SplashScreenOutput {
+    func createTabBar() {
+        let tabBarController = UITabBarController()
+        
+        let movieList = UINavigationController(rootViewController: MovieListViewController())
+        let bookmarks = UINavigationController(rootViewController: BookmarksViewController())
+        
+        movieList.tabBarItem = UITabBarItem(title: "Home",
+                                            image: UIImage(systemName: "house"),
+                                            selectedImage: UIImage(systemName: "house.fill"))
+        bookmarks.tabBarItem = UITabBarItem(title: "Bookmarks",
+                                            image: UIImage(systemName: "bookmark"),
+                                            selectedImage: UIImage(systemName: "bookmark.fill"))
+
+        tabBarController.setViewControllers([movieList,bookmarks], animated: true)
+        
+        tabBarController.modalPresentationStyle = .fullScreen
+        present(tabBarController,animated: true)
+    }
+    
+    func showError(error: MovieError) {
+        print(error.localizedDescription)
+    }
+}
