@@ -12,6 +12,10 @@
 		A53F2C932D1C2CF700B9B08C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F2C8F2D1C2CF700B9B08C /* SceneDelegate.swift */; };
 		A53F2C952D1C2CF700B9B08C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A53F2C892D1C2CF700B9B08C /* Assets.xcassets */; };
 		A53F2C972D1C2CF700B9B08C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A53F2C8C2D1C2CF700B9B08C /* LaunchScreen.storyboard */; };
+		A53F2CAD2D1C626600B9B08C /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F2CAC2D1C626600B9B08C /* AppManager.swift */; };
+		A53F2CB62D1C669100B9B08C /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F2CB52D1C669100B9B08C /* SplashScreenViewModel.swift */; };
+		A53F2CB82D1C669B00B9B08C /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F2CB72D1C669B00B9B08C /* SplashScreenViewController.swift */; };
+		A53F2CBA2D1C678F00B9B08C /* SplashScreenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F2CB92D1C678F00B9B08C /* SplashScreenProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		A53F2C8A2D1C2CF700B9B08C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A53F2C8B2D1C2CF700B9B08C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A53F2C8F2D1C2CF700B9B08C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A53F2CAC2D1C626600B9B08C /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
+		A53F2CB52D1C669100B9B08C /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
+		A53F2CB72D1C669B00B9B08C /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
+		A53F2CB92D1C678F00B9B08C /* SplashScreenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +84,11 @@
 		A53F2C912D1C2CF700B9B08C /* MovieChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				A53F2CA62D1C620C00B9B08C /* Manager */,
+				A53F2CAB2D1C623800B9B08C /* Utilities */,
+				A53F2CAA2D1C622F00B9B08C /* Scenes */,
+				A53F2CA92D1C622700B9B08C /* Models */,
+				A53F2CA82D1C621F00B9B08C /* Network */,
 				A53F2C9A2D1C2D5500B9B08C /* Resources */,
 				A53F2C992D1C2D4000B9B08C /* Application */,
 			);
@@ -99,6 +112,101 @@
 				A53F2C8C2D1C2CF700B9B08C /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		A53F2CA62D1C620C00B9B08C /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				A53F2CAC2D1C626600B9B08C /* AppManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		A53F2CA82D1C621F00B9B08C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		A53F2CA92D1C622700B9B08C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A53F2CAA2D1C622F00B9B08C /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				A53F2CB42D1C62E200B9B08C /* MovieList */,
+				A53F2CB32D1C62D800B9B08C /* MovieDetail */,
+				A53F2CB22D1C62CE00B9B08C /* SplashScreen */,
+				A53F2CB12D1C62C900B9B08C /* Bookmarks */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		A53F2CAB2D1C623800B9B08C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A53F2CB02D1C62BF00B9B08C /* Extensions */,
+				A53F2CAF2D1C62BA00B9B08C /* Enums */,
+				A53F2CAE2D1C62B300B9B08C /* Constants */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		A53F2CAE2D1C62B300B9B08C /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		A53F2CAF2D1C62BA00B9B08C /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		A53F2CB02D1C62BF00B9B08C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A53F2CB12D1C62C900B9B08C /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Bookmarks;
+			sourceTree = "<group>";
+		};
+		A53F2CB22D1C62CE00B9B08C /* SplashScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A53F2CB52D1C669100B9B08C /* SplashScreenViewModel.swift */,
+				A53F2CB72D1C669B00B9B08C /* SplashScreenViewController.swift */,
+				A53F2CB92D1C678F00B9B08C /* SplashScreenProtocol.swift */,
+			);
+			path = SplashScreen;
+			sourceTree = "<group>";
+		};
+		A53F2CB32D1C62D800B9B08C /* MovieDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MovieDetail;
+			sourceTree = "<group>";
+		};
+		A53F2CB42D1C62E200B9B08C /* MovieList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MovieList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,7 +324,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A53F2CBA2D1C678F00B9B08C /* SplashScreenProtocol.swift in Sources */,
+				A53F2CAD2D1C626600B9B08C /* AppManager.swift in Sources */,
+				A53F2CB62D1C669100B9B08C /* SplashScreenViewModel.swift in Sources */,
 				A53F2C922D1C2CF700B9B08C /* AppDelegate.swift in Sources */,
+				A53F2CB82D1C669B00B9B08C /* SplashScreenViewController.swift in Sources */,
 				A53F2C932D1C2CF700B9B08C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
