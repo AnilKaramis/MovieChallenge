@@ -1,5 +1,5 @@
 //
-//  MovieError.swift
+//  NetworkError.swift
 //  MovieChallenge
 //
 //  Created by AnılKaramış on 26.12.2024.

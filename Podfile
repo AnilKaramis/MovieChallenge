@@ -6,6 +6,7 @@ target 'MovieChallenge' do
   use_frameworks!
 
  pod 'SnapKit', '~> 5.7.0'
+pod 'Kingfisher', '~> 8.0'
 
   # Pods for MovieChallenge
 
