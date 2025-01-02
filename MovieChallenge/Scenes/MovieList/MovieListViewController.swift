@@ -9,13 +9,21 @@ import UIKit
 
 class MovieListViewController: UIViewController {
     
-    let collectionView: UICollectionView = {
+    let collectionViewMain: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 100, height: 100)
+        layout.minimumInteritemSpacing = 10
         layout.scrollDirection = .horizontal
-        return UICollectionView(frame: .zero, collectionViewLayout: layout)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: Constants.UIConstants.movieCollectionViewListCellID)
+        collectionView.backgroundColor = .systemBackground
+        
+        return collectionView
     }()
 
-    private lazy var tableView: UITableView = {
+    private lazy var tableViewMain: UITableView = {
         var table = UITableView()
         table.register(MovieListCell.self, forCellReuseIdentifier: Constants.UIConstants.movieTableViewListCellID)
         table.delegate = self
@@ -41,6 +49,9 @@ class MovieListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionViewMain.dataSource = self
+        collectionViewMain.delegate = self
+        
         viewModel.output = self
         configure()
     }
@@ -57,11 +68,11 @@ class MovieListViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = Constants.UIConstants.movieListTitle
         
-        view.addSubview(tableView)
-        view.addSubview(collectionView)
+        view.addSubview(tableViewMain)
+        view.addSubview(collectionViewMain)
         
-        tableView.pinTable(to: view)
-        collectionView.pinCollection(to: view)
+        tableViewMain.pinTable(to: view)
+        collectionViewMain.pinCollection(to: view)
     }
 }
 
@@ -84,7 +95,7 @@ extension MovieListViewController: UISearchResultsUpdating {
 
 extension MovieListViewController: MovieListOutput {
     func refresh() {
-        tableView.reloadData()
+        tableViewMain.reloadData()
     }
 }
 
@@ -123,17 +134,19 @@ extension MovieListViewController: UITableViewDelegate, UITableViewDataSource {
         navigationController?.pushViewController(vc, animated: true)
     }
 }
-//MARK: CollectionViewController
+//MARK: -CollectionViewController
 
 extension MovieListViewController:UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
-    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.UIConstants.movieCollectionViewListCellID, for: indexPath) as? MovieListCell else { fatalError("MovieCollectionViewCell Error") }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.UIConstants.movieCollectionViewListCellID, for: indexPath) as? CollectionViewCell else { fatalError("MovieCollectionViewCell Error") }
+        cell.setMovie(movie: viewModel.movieForCell(filterStatus: isFiltering, section: indexPath.section, index: indexPath.row))
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
     }
 }
 

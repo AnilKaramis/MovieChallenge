@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class MovieListCell: UITableViewCell {
+final class MovieListCell: UITableViewCell {
 
     private let movieTitleLabel: UILabel = .init(font: UIFont.boldSystemFont(ofSize: 24), lines: 4)
     private let movieRateLabel: UILabel = .init()
