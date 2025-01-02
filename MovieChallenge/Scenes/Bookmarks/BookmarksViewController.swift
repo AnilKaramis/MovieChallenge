@@ -40,7 +40,7 @@ class BookmarksViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = Constants.UIConstants.bookmarksTitle
         
-        tableView.pin(to: view)
+        tableView.pinTable(to: view)
     }
 }
 

@@ -8,13 +8,19 @@
 import UIKit
 
 class MovieListViewController: UIViewController {
+    
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        return UICollectionView(frame: .zero, collectionViewLayout: layout)
+    }()
 
     private lazy var tableView: UITableView = {
         var table = UITableView()
-        table.register(MovieListCell.self, forCellReuseIdentifier: Constants.UIConstants.movieListCellID)
+        table.register(MovieListCell.self, forCellReuseIdentifier: Constants.UIConstants.movieTableViewListCellID)
         table.delegate = self
         table.dataSource = self
-        table.rowHeight = 288
+        table.rowHeight = 220
         return table
     }()
     
@@ -52,7 +58,10 @@ class MovieListViewController: UIViewController {
         navigationItem.title = Constants.UIConstants.movieListTitle
         
         view.addSubview(tableView)
-        tableView.pin(to: view)
+        view.addSubview(collectionView)
+        
+        tableView.pinTable(to: view)
+        collectionView.pinCollection(to: view)
     }
 }
 
@@ -81,9 +90,9 @@ extension MovieListViewController: MovieListOutput {
 
 extension MovieListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.UIConstants.movieListCellID,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.UIConstants.movieTableViewListCellID,
                                                        for: indexPath) as? MovieListCell
-                                                       else { return MovieListCell() }
+        else { fatalError("MovieTableViewListCell Error") }
         
         cell.setMovie(movie: viewModel.movieForCell(filterStatus: isFiltering,
                                                     section: indexPath.section,
@@ -114,3 +123,46 @@ extension MovieListViewController: UITableViewDelegate, UITableViewDataSource {
         navigationController?.pushViewController(vc, animated: true)
     }
 }
+//MARK: CollectionViewController
+
+extension MovieListViewController:UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.UIConstants.movieCollectionViewListCellID, for: indexPath) as? MovieListCell else { fatalError("MovieCollectionViewCell Error") }
+        
+        return cell
+    }
+}
+
+//MARK: -Preview
+
+#if DEBUG
+import SwiftUI
+
+struct MovieListViewController_Previews: PreviewProvider {
+   static var previews: some View {
+       NavigationController_Preview {
+           let vc = MovieListViewController()
+           return vc
+       }
+   }
+}
+
+struct NavigationController_Preview<ViewController: UIViewController>: UIViewControllerRepresentable {
+   let viewControllerFactory: () -> ViewController
+   
+   init(_ viewControllerFactory: @escaping () -> ViewController) {
+       self.viewControllerFactory = viewControllerFactory
+   }
+   
+   func makeUIViewController(context: Context) -> UINavigationController {
+       let vc = viewControllerFactory()
+       return UINavigationController(rootViewController: vc)
+   }
+   
+   func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
+}
+#endif

@@ -9,7 +9,8 @@ import Foundation
 
 extension Constants {
     struct UIConstants {
-        static let movieListCellID = "movie_list_cell"
+        static let movieTableViewListCellID = "movie_tableview_list_cell"
+        static let movieCollectionViewListCellID = "movie_collectionview_list_cell"
         static let movieListTitle = "Movies"
         static let homeTabBarTitle = "Home"
         

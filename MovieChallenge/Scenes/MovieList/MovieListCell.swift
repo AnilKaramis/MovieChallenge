@@ -13,7 +13,7 @@ class MovieListCell: UITableViewCell {
     private let movieTitleLabel: UILabel = .init(font: UIFont.boldSystemFont(ofSize: 24), lines: 4)
     private let movieRateLabel: UILabel = .init()
     private let movieDescriptionLabel: UILabel = .init(font: UIFont.systemFont(ofSize: 16), textColor: .lightGray, lines: 4)
-    
+
     private let stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
@@ -34,7 +34,7 @@ class MovieListCell: UITableViewCell {
         button.imageView?.contentMode = .scaleAspectFit
         button.setImage(UIImage(systemName: Constants.UIConstants.bookmarkImage), for: .normal)
         button.setImage(UIImage(systemName: Constants.UIConstants.selectedBookmarkImage), for: .selected)
-        button.addTarget(self, action: #selector(bookmarkButtonAction), for: .touchUpInside)
+        button.addTarget(MovieListCell.self, action: #selector(bookmarkButtonAction), for: .touchUpInside)
         return button
     }()
     
