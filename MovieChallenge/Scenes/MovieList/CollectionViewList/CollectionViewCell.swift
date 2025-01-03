@@ -15,14 +15,8 @@ final class CollectionViewCell: UICollectionViewCell {
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 15
         imageView.contentMode = .scaleAspectFill
+        
         return imageView
-    }()
-    
-    private let stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.spacing = 10
-        return stack
     }()
     
     override init(frame: CGRect) {
@@ -36,13 +30,13 @@ final class CollectionViewCell: UICollectionViewCell {
     }
     
     private func configure() {
-        addSubview(stackView)
-        stackView.addArrangedSubview(movieImage)
+        contentView.addSubview(movieImage)
     }
     
     private func makeConstraints() {
-        stackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        movieImage.snp.makeConstraints {
+            $0.trailing.leading.top.equalToSuperview()
+            $0.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
     }
     
