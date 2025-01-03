@@ -40,6 +40,8 @@ class MovieListViewController: UIViewController {
         return searchController
     }()
     
+    private var currentPage = 1
+    private var isLoadingMore = false
     private lazy var categoriesMenu: UIMenu = .init(menuTitle: Constants.UIConstants.categoriesMenuTitle, titles: viewModel.genres,
                                                     handler: { self.viewModel.categoriesMenuHandler(title: $0) })
     
@@ -47,13 +49,14 @@ class MovieListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-   
+        
         collectionViewMain.dataSource = self
         collectionViewMain.delegate = self
         
         viewModel.output = self
         
         configure()
+        fetchData(vc: view)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,20 +73,38 @@ class MovieListViewController: UIViewController {
         
         view.addSubview(tableViewMain)
         view.addSubview(collectionViewMain)
-
+        
         
         tableViewMain.pinTable(to: view)
         collectionViewMain.pinCollection(to: view)
     }
     func fetchData(vc: UIView) {
-       
+        
         LoadingManager.shared.showLoading(in: vc)
-                
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-                guard let self = self else { return }
-                LoadingManager.shared.hideLoading()
-            }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+            guard self != nil else { return }
+            LoadingManager.shared.hideLoading()
         }
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (scrollView.contentSize.height - scrollView.frame.size.height - 100) {
+            guard !isLoadingMore else { return }
+//            loadMoreData()
+        }
+    }
+//    private func loadMoreData() {
+//        isLoadingMore = true
+//        currentPage += 1
+//        
+//        viewModel.loadMoreMovies(page: currentPage) { [weak self] success in
+//            self?.isLoadingMore = false
+//            if success {
+//                self?.tableViewMain.reloadData()
+//            }
+//        }
+//    }
 }
 
 // MARK: Implement filter control methods
@@ -114,9 +135,9 @@ extension MovieListViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.UIConstants.movieTableViewListCellID,
                                                        for: indexPath) as? MovieListCell
         else { fatalError("MovieTableViewListCell Error") }
-        if indexPath.row == 0 && indexPath.section == 0 {
-            self.fetchData(vc: tableViewMain)
-                }
+        //        if indexPath.row == 0 && indexPath.section == 0 {
+        //            self.fetchData(vc: tableViewMain)
+        //        }
         
         cell.setMovie(movie: viewModel.movieForCell(filterStatus: isFiltering,
                                                     section: indexPath.section,

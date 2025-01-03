@@ -15,7 +15,7 @@ protocol MovieServiceProtocol {
 class MovieService: MovieServiceProtocol {
     static let shared = MovieService()
     private init() {}
-        
+    
     private let movieFetchURL = Constants.APIConstants.baseAPIURL + "/movie"
     private let genreFetchURL = Constants.APIConstants.baseAPIURL + "/genre/movie/list"
     
@@ -40,4 +40,16 @@ class MovieService: MovieServiceProtocol {
             "language": "en-US",
         ], completion: completion)
     }
+//    func loadMoreMovies(page: Int, completion: @escaping (Bool) -> Void) {
+//        // API çağrısı
+//        ServiceManager.shared.(.nowPlaying(page: page)) { [weak self] result in
+//            switch result {
+//            case .success(let movies):
+//                self?.movies.append(contentsOf: movies)
+//                completion(true)
+//            case .failure:
+//                completion(false)
+//            }
+//        }
+//    }
 }

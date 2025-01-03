@@ -22,6 +22,9 @@ final class MovieListViewModel {
     private let appManager = AppManager.shared
     private let endpoints = MovieListEndpoint.allCases
     private let userDefaults = UserDefaultsManager.shared
+    private var currentPage = 1
+    private var isFetching = false
+    private var movies: [Movie] = []
     
     init() {
         input = self
@@ -80,7 +83,7 @@ extension MovieListViewModel: MovieListInput {
         var movies: [Movie] = bookmarkService.getBookmarkedMovies()
         
         guard let movie = movieForCell(filterStatus: filterStatus, section: section, index: index)
-            else { return }
+        else { return }
         
         if !movie.isFav  {
             if !movies.contains(where: { $0.id == movie.id }) {
@@ -116,4 +119,22 @@ extension MovieListViewModel: MovieListInput {
         updateCategorizedMovies()
         output?.refresh()
     }
+//    func loadMoreMovies(endpoint: MovieListEndpoint) {
+//           guard !isFetching else { return }
+//           isFetching = true
+//           
+//           MovieService.shared.fetchMovies(from: endpoint, page: currentPage) { [weak self] result in
+//               guard let self = self else { return }
+//               self.isFetching = false
+//               
+//               switch result {
+//               case .success(let response):
+//                   self.movies.append(contentsOf: response.results)
+//                   self.currentPage += 1
+//                   self.output?.refresh()
+//               case .failure:
+//                   break
+//               }
+//           }
+//       }
 }
