@@ -42,8 +42,7 @@ class MovieListViewController: UIViewController {
     
     private var currentPage = 1
     private var isLoadingMore = false
-    private lazy var categoriesMenu: UIMenu = .init(menuTitle: Constants.UIConstants.categoriesMenuTitle, titles: viewModel.genres,
-                                                    handler: { self.viewModel.categoriesMenuHandler(title: $0) })
+    private lazy var categoriesMenu: UIMenu = .init(menuTitle: Constants.UIConstants.categoriesMenuTitle, titles: viewModel.genres,handler: { self.viewModel.categoriesMenuHandler(title: $0) })
     
     private let viewModel = MovieListViewModel()
     
@@ -88,16 +87,18 @@ class MovieListViewController: UIViewController {
         }
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let position = scrollView.contentOffset.y
-        if position > (scrollView.contentSize.height - scrollView.frame.size.height - 100) {
-            guard !isLoadingMore else { return }
-//            loadMoreData()
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+        
+        if offsetY >= contentHeight - (2 * height){
+            
         }
     }
 //    private func loadMoreData() {
 //        isLoadingMore = true
 //        currentPage += 1
-//        
+//
 //        viewModel.loadMoreMovies(page: currentPage) { [weak self] success in
 //            self?.isLoadingMore = false
 //            if success {
@@ -192,32 +193,4 @@ extension MovieListViewController:UICollectionViewDataSource, UICollectionViewDe
         navigationController?.pushViewController(vc, animated: true)
     }
 }
-//MARK: -Preview
 
-#if DEBUG
-import SwiftUI
-
-struct MovieListViewController_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationController_Preview {
-            let vc = MovieListViewController()
-            return vc
-        }
-    }
-}
-
-struct NavigationController_Preview<ViewController: UIViewController>: UIViewControllerRepresentable {
-    let viewControllerFactory: () -> ViewController
-    
-    init(_ viewControllerFactory: @escaping () -> ViewController) {
-        self.viewControllerFactory = viewControllerFactory
-    }
-    
-    func makeUIViewController(context: Context) -> UINavigationController {
-        let vc = viewControllerFactory()
-        return UINavigationController(rootViewController: vc)
-    }
-    
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
-}
-#endif
