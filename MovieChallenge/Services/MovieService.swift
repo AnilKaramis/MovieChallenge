@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkLayer
 
 protocol MovieServiceProtocol {
     func fetchMovies(from endpoint: MovieListEndpoint,completion: @escaping (Result<MovieResponse, NetworkError>) -> ())

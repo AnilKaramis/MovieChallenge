@@ -20,8 +20,8 @@ public final class APIClient: NetworkClientService {
 
     // Initialize URLSession with SSL Pinning
     public func initializeSessionManagers() {
-        urlSession?.invalidateAndCancel()
-        urlSession = URLSession(configuration: .default, delegate: SSLPinningURLSessionDelegate(), delegateQueue: nil)
+        urlSession?.invalidateAndCancel()   ///Kendi Foundation URLSeassion iptal ediyor
+        urlSession = URLSession(configuration: .default, delegate: SSLPinningURLSessionDelegate(), delegateQueue: nil) /// SSLPinningURLSessionDeelgate yeni URLSeassion delegate yapma
     }
     
     // Perform a network request and decode the response
@@ -54,3 +54,4 @@ public final class APIClient: NetworkClientService {
         }
     }
 }
+

@@ -32,9 +32,10 @@ public struct Request {
         self.retryDelay = retryDelay
     }
 
+    
     func setUrlRequest(isRunningInBackground: Bool) -> URLRequest? {
         guard let url = NetworkDefaults.urlComponents(with: path, parameters: parameters).url else { Log.error("error \(#line)"); return nil }
-
+        
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
 

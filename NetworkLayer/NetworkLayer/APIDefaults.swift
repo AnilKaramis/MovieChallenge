@@ -11,21 +11,18 @@ public final class NetworkDefaults: NSObject, URLSessionDelegate {
     public static func defaultHeaders() -> [HTTPHeader] {
         var headers = [HTTPHeader]()
         headers.append(HTTPHeader(name: "Content-Type", value: "application/json"))
-
         return headers
     }
 
     public static func urlComponents(with path: String, parameters: [String: Any]?) -> URLComponents {
         var urlComponents = URLComponents()
-        urlComponents.scheme = ApiConstants.apiScheme
-        urlComponents.host = ApiConstants.apiHost
+        urlComponents.scheme = ApiConstants.apiScheme //"https"
+        urlComponents.host = ApiConstants.apiHost //"api.themoviedb.org"
         urlComponents.path = "/" + path
         urlComponents.queryItems = get(params: parameters)
         print("cikan sonuc = \(urlComponents)")
         print("path sonucu = \(path)")
-       
         
-
         return urlComponents
     }
 

@@ -7,6 +7,7 @@ target 'MovieChallenge' do
 
  pod 'SnapKit', '~> 5.7.0'
 pod 'Kingfisher', '~> 8.0'
+pod 'SDWebImage', '~> 5.0'
 
   # Pods for MovieChallenge
 
